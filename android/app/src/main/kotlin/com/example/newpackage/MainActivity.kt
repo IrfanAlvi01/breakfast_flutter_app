@@ -1,4 +1,4 @@
-package com.example.breakfast_flutter_app
+package com.example.newpackage
 
 import io.flutter.embedding.android.FlutterActivity
 
