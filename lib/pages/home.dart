@@ -1,3 +1,4 @@
+import "package:Breakfast_App/Screen2.dart";
 import "package:Breakfast_App/models/category_model.dart";
 import "package:Breakfast_App/models/diet_model.dart";
 import "package:Breakfast_App/models/popular_model.dart";
@@ -12,19 +13,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<CategoryModel> initialCategories = [];
   List<CategoryModel> categories = [];
   List<DietModel> diets = [];
   List<PopularDietsModel> popularDiets = [];
 
   void _getInitialInfo() {
+    initialCategories = CategoryModel.getCategories();
     categories = CategoryModel.getCategories();
     diets = DietModel.getDiets();
     popularDiets = PopularDietsModel.getPopularDiets();
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     _getInitialInfo();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
       backgroundColor: Colors.white,
@@ -259,37 +268,43 @@ class _HomePageState extends State<HomePage> {
               width: 25,
             ),
             itemBuilder: (context, index) {
-              return Container(
-                // height: 50,
-                width: 100,
-                decoration: BoxDecoration(
-                  color: categories[index].boxColor.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(10),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Screen2S()));
+                },
+                child: Container(
+                  // height: 50,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: categories[index].boxColor.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SvgPicture.asset(categories[index].iconPath),
+                          ),
+                        ),
+                        Text(
+                          categories[index].name,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                            fontSize: 14,
+                          ),
+                        )
+                      ]),
                 ),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SvgPicture.asset(categories[index].iconPath),
-                        ),
-                      ),
-                      Text(
-                        categories[index].name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                          fontSize: 14,
-                        ),
-                      )
-                    ]),
               );
             },
           ),
@@ -313,6 +328,10 @@ class _HomePageState extends State<HomePage> {
         ),
       ]),
       child: TextField(
+        onChanged: (val) {
+          print(val + "  test");
+          searchCategories(val);
+        },
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
@@ -407,14 +426,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void searchCategories(String query) {
-    final output = categories.where((element) {
+    final output = initialCategories.where((element) {
       final categoryName = element.name.toLowerCase();
       final input = query.toLowerCase();
 
       return categoryName.contains(input);
     }).toList();
 
-    print(output);
+    //print(output);
 
     setState(() {
       categories = output;

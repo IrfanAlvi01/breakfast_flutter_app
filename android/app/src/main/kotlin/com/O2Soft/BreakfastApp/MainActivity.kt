@@ -1,4 +1,4 @@
-package com.example.newpackage
+package com.O2Soft.BreakfastApp
 
 import io.flutter.embedding.android.FlutterActivity
 
