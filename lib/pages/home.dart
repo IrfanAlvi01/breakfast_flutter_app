@@ -433,7 +433,7 @@ class _HomePageState extends State<HomePage> {
       return categoryName.contains(input);
     }).toList();
 
-    //print(output);
+    print(output);
 
     setState(() {
       categories = output;
