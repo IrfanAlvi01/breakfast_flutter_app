@@ -1,4 +1,4 @@
-import "package:Breakfast_App/Screen2.dart";
+import "package:Breakfast_App/screens/Screen2.dart";
 import "package:Breakfast_App/models/category_model.dart";
 import "package:Breakfast_App/models/diet_model.dart";
 import "package:Breakfast_App/models/popular_model.dart";
