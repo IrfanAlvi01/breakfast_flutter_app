@@ -14,6 +14,10 @@ class _Screen2SState extends State<Screen2S> {
       appBar: AppBar(
         title: Text("Screen 2"),
       ),
+      backgroundColor: Colors.pink,
+      body: ListView(
+        children: [],
+      ),
     );
   }
 }
