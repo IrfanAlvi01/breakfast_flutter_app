@@ -50,6 +50,13 @@ class CategoryModel {
         boxColor: Color(0xff92A3FD),
       ),
     );
+    categories.add(
+      CategoryModel(
+          name: 'Bread 2',
+       iconPath: 'assets/icons/canai-bread.svg',
+        boxColor: Color(0xff92A3FD),
+      ),
+    );
 
     return categories;
   }
